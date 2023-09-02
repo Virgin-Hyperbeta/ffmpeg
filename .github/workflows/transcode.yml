@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  label:
+  hutao:
     runs-on: ubuntu-latest
 
     steps:
