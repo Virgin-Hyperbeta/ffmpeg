@@ -9,19 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v2
-      id: setup-ffmpeg
-
     - name: Setup yt-dlp
       uses: AnimMouse/setup-yt-dlp@v1
 
     - name: Download and process video
       run: |
-        ffmpeg --help encoder=av1
+        wget https://gitlab.com/AOMediaCodec/SVT-AV1/-/jobs/5002830615/artifacts/download
+        unzip download.zip
+        ./ffmpeg --help encoder=av1
         yt-dlp --downloader aria2c -f 315+251 "https://youtu.be/q3aQ1Hk5gVw" --output best
         yt-dlp --downloader aria2c -f 598+599 "https://youtu.be/q3aQ1Hk5gVw" --output worst
-        ffmpeg -i best.webm -c:a copy -c:v libsvtav1 -preset 12 -crf 63 -svtav1-params tune=0 output.mkv
+        ./ffmpeg -i best.webm -c:a copy -c:v libsvtav1 -preset 12 -crf 63 -svtav1-params tune=0 output.mkv
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
