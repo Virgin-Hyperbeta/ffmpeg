@@ -1,5 +1,8 @@
 name: Transcode
-on: []
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   label:
@@ -18,6 +21,7 @@ jobs:
         yt-dlp --downloader aria2c -f 315+251 "https://youtu.be/q3aQ1Hk5gVw" --output best
         yt-dlp --downloader aria2c -f 598+599 "https://youtu.be/q3aQ1Hk5gVw" --output worst
         ffmpeg -i best.webm -c:a copy -c:v libsvtav1 -preset 12 -crf 63 -svtav1-params tune=0 output.mkv
+
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
