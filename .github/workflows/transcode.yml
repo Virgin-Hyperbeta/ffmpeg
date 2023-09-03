@@ -14,9 +14,9 @@ jobs:
     - run: |
         wget https://gitlab.com/AOMediaCodec/SVT-AV1/-/jobs/5002830562/artifacts/raw/Bin/Release/SvtAv1EncApp
         yt-dlp --downloader aria2c -f 315+251 "https://youtu.be/q3aQ1Hk5gVw" --output best
-        ffmpeg -i best.webm -map 0:v:0 -pix_fmt yuv420p10le -f yuv4mpegpipe -strict -1 temp.yuv
-        SvtAv1EncApp -i temp.yuv --rc 1 --tbr 1 --preset 12 --keyint 10000 --input-depth 10 -tune 0 -b temp.ivf 
-        ffmpeg -i temp.ivf -i best.webm -map 0:v -map 1:a:0 -c:v copy -c:a copy outfile.mkv
+        ffmpeg -i best.webm -map 0:v:0 -pix_fmt yuv420p10le -f yuv4mpegpipe -strict -1 temp.y4m
+        SvtAv1EncApp -i temp.yuv --rc 1 --tbr 1 --preset 8 --keyint 10000 --input-depth 10 -tune 0 -b temp.ivf 
+        ffmpeg -i temp.ivf -i best.webm -map 0:v -map 1:a:0 -c:v copy -c:a copy output.mkv
 
 
     - uses: actions/upload-artifact@v3
