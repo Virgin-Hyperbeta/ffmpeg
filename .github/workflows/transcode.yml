@@ -18,7 +18,7 @@ jobs:
         unzip download
         sudo mv ffmpeg /bin/
         yt-dlp --downloader aria2c -f 315+251 "https://youtu.be/q3aQ1Hk5gVw" --output best
-        ffmpeg -i best.webm -c:a copy -c:v libsvtav1 -preset 12 -svtav1-params tune=0:rc=1:tbr=1:keyint=9999 output.mkv
+        ffmpeg -i best.webm -c:a copy -c:v libsvtav1 -preset 12 -svtav1-params tune=0:rc=1:tbr=1 output.mkv
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
