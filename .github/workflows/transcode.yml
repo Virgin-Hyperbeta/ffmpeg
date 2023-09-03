@@ -8,19 +8,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Setup yt-dlp
-      uses: AnimMouse/setup-yt-dlp@v1
+    - uses: FedericoCarboni/setup-ffmpeg@v2
+    - uses: AnimMouse/setup-yt-dlp@v1
 
-    - name: Download and process video
-      run: |
-        wget https://gitlab.com/AOMediaCodec/SVT-AV1/-/jobs/5002830615/artifacts/download
+    - run: |
+        wget https://gitlab.com/AOMediaCodec/SVT-AV1/-/jobs/5002830562/artifacts/raw/Bin/Release/SvtAv1EncApp
         unzip download
         sudo mv ffmpeg /bin/
         yt-dlp --downloader aria2c -f 315+251 "https://youtu.be/q3aQ1Hk5gVw" --output best
         ffmpeg -i best.webm -c:a copy -c:v libsvtav1 -preset 12 -crf 63 -svtav1-params tune=0 -g 10000 output.mkv
 
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v3
       with:
         name: transcode-output
         path: output.mkv
